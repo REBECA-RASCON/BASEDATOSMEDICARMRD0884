@@ -291,55 +291,6 @@
     <footer>
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
-
-    <script>
-
-    document.getElementById("formDoctor")
-    .addEventListener("submit", async function(e){
-
-        e.preventDefault();
-
-        const doctor = {
-            idMedico: document.getElementById("id_medico").value,
-            nombreMedico: document.getElementById("nombre").value,
-            apellidoPaternoMedico: document.getElementById("apellido_paterno").value,
-            apellidoMaternoMedico: document.getElementById("apellido_materno").value,
-            genero: document.getElementById("genero").value,
-            especialidad: document.getElementById("especialidad").value,
-            cedula: document.getElementById("cedula_profesional").value,
-            rfc: document.getElementById("RFC").value,
-            correo: document.getElementById("correo_electronico").value
-        };
-
-            try {
     
-                    const respuesta = await fetch(
-                "http://localhost:3000/doctores",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(doctor)
-                }
-            );
-    
-            const resultado = await respuesta.json();
-    
-            alert("Medico registrado correctamente");
-    
-            document.getElementById("formDoctor").reset();
-    
-        } catch(error){
-    
-            console.error(error);
-    
-            alert("Error al registrar medico");
-    
-        }
-    
-    });
-
-</script>
 </body>
 </html>
