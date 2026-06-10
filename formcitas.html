@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Citas - Consultorio Médico RMRD</title>
+    <title>Registrar Nueva Cita - Consultorio Médico RMRD</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,121 +39,85 @@
             text-align: center;
         }
 
-        .menu_navegacion {
-            display: flex;
-            justify-content: space-around;
-            background-color: #f0f6fc;
-            padding: 15px 0;
-            border-bottom: 1px solid #b0c9f0;
-        }
-
-        .menu_navegacion a {
-            font-family: 'Montserrat', sans-serif;
-            color: #2a75d3;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.3s;
-        }
-
-        .menu_navegacion a:hover {
-            color: #002060;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .contenedor_tabla {
-            max-width: 1000px;
+        .contenedor_formulario {
+            max-width: 600px;
             margin: 40px auto;
-            padding: 20px;
+            padding: 30px;
             background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        .contenedor_tabla h2 {
+        .contenedor_formulario h2 {
             font-family: 'Montserrat', sans-serif;
             color: #2a75d3;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
-            font-size: 22px;
+            font-size: 20px;
         }
 
-        .barra_botones {
+        .grupo_campo {
+            margin-bottom: 18px;
+        }
+
+        .grupo_campo label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #002060;
+            text-transform: uppercase;
+        }
+
+        .grupo_campo input, .grupo_campo textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b0c9f0;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .grupo_campo input:focus, .grupo_campo textarea:focus {
+            outline: none;
+            border-color: #2a75d3;
+        }
+
+        .botones_accion {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+            margin-top: 25px;
         }
 
-        .boton_volver {
+        .btn-cancelar {
             color: #555;
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
+            align-self: center;
             font-family: 'Montserrat', sans-serif;
-            transition: color 0.3s;
         }
 
-        .boton_volver:hover {
-            color: #002060;
-        }
-
-        .boton_formulario {
-            display: inline-block;
-            padding: 10px 20px;
+        .btn-guardar {
+            padding: 12px 25px;
             background-color: #002060;
             color: white;
+            border: none;
             border-radius: 4px;
-            text-decoration: none;
+            cursor: pointer;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
         }
 
-        .boton_formulario:hover {
+        .btn-guardar:hover {
             background-color: #2a75d3;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 25px;
-            font-size: 14px;
-        }
-
-        th {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #002060;
-            color: white;
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #002060;
-        }
-
-        td {
-            padding: 10px;
-            border: 1px solid #b0c9f0;
-        }
-
-        .btn-eliminar {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        .btn-eliminar:hover {
-            background-color: #cc0000;
         }
 
         footer {
@@ -175,38 +139,50 @@
         <h1>Consultorio Médico RMRD</h1>
     </header>
 
-    <nav class="menu_navegacion">
-        <a href="pacientes.html">Clientes</a>
-        <a href="doctores.html">Médicos</a>
-        <a href="personal.html">Personal</a>
-        <a href="citas.html">Citas</a>
-    </nav>
-
-    <main class="contenedor_tabla">
-
-        <div class="barra_botones">
-            <a href="index.html" class="boton_volver">&larr; Volver al Menú Principal</a>
-            <a href="formcitas.html" class="boton_formulario">+ Registrar Nueva Cita</a>
-        </div>
-
-        <h2>CITAS</h2>
+    <main class="contenedor_formulario">
+        <h2>Registrar Nueva Cita</h2>
         
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Cita</th>
-                    <th>Paciente</th>
-                    <th>Doctor</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Sala</th>
-                    <th>Motivo de la Cita</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tablaCitasBody">
-                </tbody>
-        </table>
+        <form id="formularioCita">
+            <div class="grupo_campo">
+                <label for="id_cita">ID Cita:</label>
+                <input type="text" id="id_cita" required placeholder="Ej: 354477">
+            </div>
+            
+            <div class="grupo_campo">
+                <label for="paciente">Nombre del Paciente:</label>
+                <input type="text" id="paciente" required placeholder="Ej: Odette Marquez Pinto">
+            </div>
+            
+            <div class="grupo_campo">
+                <label for="doctor">Médico Asignado:</label>
+                <input type="text" id="doctor" required placeholder="Ej: Roberto Aguilar">
+            </div>
+            
+            <div class="grupo_campo">
+                <label for="fecha">Fecha de la Cita:</label>
+                <input type="text" id="fecha" required placeholder="Ej: 12/02/26">
+            </div>
+            
+            <div class="grupo_campo">
+                <label for="hora">Hora:</label>
+                <input type="text" id="hora" required placeholder="Ej: 1:00 pm">
+            </div>
+            
+            <div class="grupo_campo">
+                <label for="sala">Sala asignada:</label>
+                <input type="text" id="sala" required placeholder="Ej: sala 15">
+            </div>
+            
+            <div class="grupo_campo">
+                <label for="motivo">Motivo de la Consulta:</label>
+                <textarea id="motivo" rows="3" required placeholder="Ej: malestar estomacal"></textarea>
+            </div>
+            
+            <div class="botones_accion">
+                <a href="citas.html" class="btn-cancelar">&larr; Cancelar y Volver</a>
+                <button type="submit" class="btn-guardar">Insertar Registro</button>
+            </div>
+        </form>
     </main>
 
     <footer>
@@ -216,69 +192,43 @@
     <script>
         // URL pública de tu backend en Firebase Studio
         const API_URL = "https://8080-rasconrebeca0884-84541037.idxdev.googleusercontent.com/api/citas";
-        const tablaBody = document.getElementById('tablaCitasBody');
+        const form = document.getElementById('formularioCita');
 
-        // FUNCIÓN PARA SOLICITAR Y CARGAR REGISTROS EN LA TABLA
-        async function obtenerCitas() {
-            tablaBody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>Cargando citas médicas desde la nube...</td></tr>";
-            
-            try {
-                const respuesta = await fetch(API_URL);
-                const citas = await respuesta.json();
-                
-                tablaBody.innerHTML = ""; // Limpiar mensaje de carga
+        // INTERCEPTAR EVENTO DE SUBMIT DEL FORMULARIO
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Detener recarga de pantalla tradicional
 
-                if (citas.length === 0) {
-                    tablaBody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>No existen registros de citas.</td></tr>";
-                    return;
-                }
-
-                // Generar filas por cada documento en MongoDB
-                citas.forEach(cita => {
-                    const fila = document.createElement('tr');
-                    fila.innerHTML = `
-                        <td>${cita.id_cita || 'N/A'}</td>
-                        <td>${cita.paciente}</td>
-                        <td>${cita.doctor}</td>
-                        <td>${cita.fecha}</td>
-                        <td>${cita.hora}</td>
-                        <td>${cita.sala}</td>
-                        <td>${cita.motivo}</td>
-                        <td>
-                            <button class="btn-eliminar" onclick="eliminarCita('${cita._id}')">Eliminar</button>
-                        </td>
-                    `;
-                    tablaBody.appendChild(fila);
-                });
-            } catch (error) {
-                console.error("Error al cargar citas:", error);
-                tablaBody.innerHTML = "<tr><td colspan='8' style='text-align:center; color:red; font-weight:bold;'>Error al conectar con el servidor backend.</td></tr>";
-            }
-        }
-
-        // FUNCIÓN PARA BORRAR UN REGISTRO
-        async function eliminarCita(id) {
-            if (!confirm("¿Estás segura de que deseas eliminar permanentemente esta cita médica?")) return;
+            // Estructurar el JSON tal como lo espera recibir el backend en Node.js
+            const nuevaCita = {
+                id_cita: document.getElementById('id_cita').value,
+                paciente: document.getElementById('paciente').value,
+                doctor: document.getElementById('doctor').value,
+                fecha: document.getElementById('fecha').value,
+                hora: document.getElementById('hora').value,
+                sala: document.getElementById('sala').value,
+                motivo: document.getElementById('motivo').value
+            };
 
             try {
-                const respuesta = await fetch(`${API_URL}/${id}`, {
-                    method: 'DELETE'
+                const respuesta = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(nuevaCita)
                 });
 
                 if (respuesta.ok) {
-                    alert("Cita médica eliminada con éxito.");
-                    obtenerCitas(); // Recargar la lista visual de inmediato
+                    alert("Registro médico insertado con éxito en MongoDB.");
+                    window.location.href = "citas.html"; // Redirección automática a la tabla visual
                 } else {
-                    alert("El servidor no pudo procesar la eliminación.");
+                    alert("Error: El servidor backend rechazó los datos.");
                 }
             } catch (error) {
-                console.error("Error al borrar:", error);
-                alert("Ocurrió un error en la comunicación con el servidor backend.");
+                console.error("Error al insertar:", error);
+                alert("No fue posible comunicarse con el servidor de Firebase Studio.");
             }
-        }
-
-        // Arrancar la función de lectura cuando el archivo se abra
-        window.onload = obtenerCitas;
+        });
     </script>
 </body>
 </html>
