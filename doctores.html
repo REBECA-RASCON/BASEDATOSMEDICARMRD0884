@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Médicos - Consultorio Médico RMRD</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f7f5;
+            color: #333333;
+        }
+
+        .cabecera {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px 20px;
+            border-bottom: 4px solid #0f766e;
+        }
+
+        .cabecera h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: #0f766e;
+            margin: 0;
+            font-size: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        
+        .menu_navegacion {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f0faf8;
+            padding: 15px 0;
+            border-bottom: 1px solid #99f6e4;
+        }
+
+        .menu_navegacion a {
+            font-family: 'Montserrat', sans-serif;
+            color: #0f766e;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+
+        .menu_navegacion a:hover {
+            color: #134e4a;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        
+        .contenedor_tabla {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .contenedor_tabla h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #111827;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 22px;
+        }
+
+       
+        .barra_botones {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .boton_volver {
+            color: #555;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            transition: color 0.3s;
+        }
+
+        .boton_volver:hover {
+            color: #0f766e;
+        }
+
+        .boton_formulario {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0f766e;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton_formulario:hover {
+            background-color: #134e4a;
+        }
+
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        th {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #111827;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #111827;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #ccfbf1;
+        }
+
+        .texto_capital {
+            text-transform: capitalize;
+        }
+
+        footer {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 60px;
+            padding: 15px;
+            border-top: 2px dashed #0f766e;
+            font-size: 11px;
+            color: #555555;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="cabecera">
+        <h1>Consultorio Médico RMRD</h1>
+    </header>
+
+    <nav class="menu_navegacion">
+        <a href="pacientes.html">Clientes</a>
+        <a href="doctores.html">Médicos</a>
+        <a href="personal.html">Personal</a>
+        <a href="citas.html">Citas</a>
+    </nav>
+
+    <main class="contenedor_tabla">
+
+        <div class="barra_botones">
+            <a href="index.html" class="boton_volver">&larr; Volver al Menú Principal</a>
+            <a href="formdoctores.html" class="boton_formulario">+ Registrar Nuevo Médico</a>
+        </div>
+
+        <h2>DOCTORES</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Médico</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Género</th>
+                    <th>Especialidad</th>
+                    <th>Cédula Profesional</th>
+                    <th>RFC</th>
+                    <th>Correo Electrónico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="texto_capital">
+                    <td>1396</td>
+                    <td>alicia</td>
+                    <td>alvarado</td>
+                    <td>orenda</td>
+                    <td>femenino</td>
+                    <td>medicina familiar</td>
+                    <td>3219844</td>
+                    <td style="text-transform: uppercase;">AAO12384</td>
+                    <td style="text-transform: none;">alicia.orenda@gmail.com</td>
+                </tr>
+                <tr class="texto_capital">
+                    <td>1397</td>
+                    <td>angelo</td>
+                    <td>carrendo</td>
+                    <td>prado</td>
+                    <td>masculino</td>
+                    <td>dermatologia</td>
+                    <td>6738829</td>
+                    <td style="text-transform: uppercase;">ACP5356</td>
+                    <td style="text-transform: none;">carrendo@gmail.com</td>
+                </tr>
+                <tr class="texto_capital">
+                    <td>1398</td>
+                    <td>pedro</td>
+                    <td>escalante</td>
+                    <td>roldan</td>
+                    <td>masculino</td>
+                    <td>medicina interna</td>
+                    <td>618284</td>
+                    <td style="text-transform: uppercase;">PER329289</td>
+                    <td style="text-transform: none;">roldan99@gmail.com</td>
+                </tr>
+                <tr class="texto_capital">
+                    <td>1399</td>
+                    <td>lorena elena</td>
+                    <td>esparza</td>
+                    <td>salazar</td>
+                    <td>femenino</td>
+                    <td>radiologia</td>
+                    <td>8877372</td>
+                    <td style="text-transform: uppercase;">LESR47732</td>
+                    <td style="text-transform: none;">lore72@gmail.com</td>
+                </tr>
+                <tr class="texto_capital">
+                    <td>13100</td>
+                    <td>maria flor</td>
+                    <td>herrera</td>
+                    <td>vargas</td>
+                    <td>femenino</td>
+                    <td>urgencias</td>
+                    <td>1238920</td>
+                    <td style="text-transform: uppercase;">FHU238384</td>
+                    <td style="text-transform: none;">flor@gmail.com</td>
+                </tr>
+                <tr class="texto_capital">
+                    <td>13101</td>
+                    <td>alfonso alan</td>
+                    <td>medina</td>
+                    <td>flores</td>
+                    <td>masculino</td>
+                    <td>cardiologia</td>
+                    <td>1556920</td>
+                    <td style="text-transform: uppercase;">AMF6367</td>
+                    <td style="text-transform: none;">electronico@gmail.com</td>
+                </tr>
+                <tr class="texto_capital">
+                    <td>13111</td>
+                    <td>melisa alondra</td>
+                    <td>molina</td>
+                    <td>jimenez</td>
+                    <td>femenino</td>
+                    <td>medicina interna</td>
+                    <td>2093842</td>
+                    <td style="text-transform: uppercase;">MMJ6378</td>
+                    <td style="text-transform: none;">jimenez@gmail.com</td>
+                </tr>
+                <tr class="texto_capital">
+                    <td>13111</td>
+                    <td>eleno</td>
+                    <td>perez</td>
+                    <td>ortega</td>
+                    <td>masculino</td>
+                    <td>oncologia</td>
+                    <td>3241838</td>
+                    <td style="text-transform: uppercase;">EPO53672</td>
+                    <td style="text-transform: none;">ort@gmail.com</td>
+                </tr>
+                <tr class="texto_capital">
+                    <td>13113</td>
+                    <td>christian</td>
+                    <td>rivera</td>
+                    <td>tamez</td>
+                    <td>masculino</td>
+                    <td>psiquiatria</td>
+                    <td>673722</td>
+                    <td style="text-transform: uppercase;">CRT64321</td>
+                    <td style="text-transform: none;">rivera@gmail.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
+    </footer>
+
+</body>
+</html>
