@@ -39,7 +39,6 @@
             text-align: center;
         }
 
-        
         .menu_navegacion {
             display: flex;
             justify-content: space-around;
@@ -59,15 +58,10 @@
             transition: color 0.3s;
         }
 
-        .menu_navegacion a:hover {
-            color: #134e4a;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+        .menu_navegacion a:hover { color: #134e4a; }
 
-        
         .contenedor_tabla {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 40px auto;
             padding: 20px;
             background-color: white;
@@ -82,7 +76,6 @@
             font-size: 22px;
         }
 
-       
         .barra_botones {
             display: flex;
             justify-content: space-between;
@@ -99,9 +92,7 @@
             transition: color 0.3s;
         }
 
-        .boton_volver:hover {
-            color: #0f766e;
-        }
+        .boton_volver:hover { color: #0f766e; }
 
         .boton_formulario {
             display: inline-block;
@@ -118,11 +109,48 @@
             transition: background-color 0.3s ease;
         }
 
-        .boton_formulario:hover {
-            background-color: #134e4a;
+        .boton_formulario:hover { background-color: #134e4a; }
+
+        /* BARRA DE BÚSQUEDA */
+        .barra_busqueda {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
         }
 
-        
+        .barra_busqueda input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #99f6e4;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            background-color: #f0faf8;
+            transition: border-color 0.3s;
+        }
+
+        .barra_busqueda input:focus {
+            outline: none;
+            border-color: #0f766e;
+            background-color: #fff;
+        }
+
+        .barra_busqueda label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: #0f766e;
+            white-space: nowrap;
+        }
+
+        .contador_resultados {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -145,9 +173,23 @@
             border: 1px solid #ccfbf1;
         }
 
-        .texto_capital {
-            text-transform: capitalize;
+        .texto_capital { text-transform: capitalize; }
+
+        /* BOTÓN ELIMINAR */
+        .btn_eliminar {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
         }
+
+        .btn_eliminar:hover { background-color: #991b1b; }
 
         footer {
             font-family: 'Montserrat', sans-serif;
@@ -183,7 +225,14 @@
         </div>
 
         <h2>DOCTORES</h2>
-        
+
+        <div class="barra_busqueda">
+            <label for="campoBusqueda">🔍 Buscar:</label>
+            <input type="text" id="campoBusqueda" placeholder="Nombre, especialidad, RFC, correo...">
+        </div>
+
+        <p class="contador_resultados" id="contadorResultados"></p>
+
         <table>
             <thead>
                 <tr>
@@ -196,10 +245,10 @@
                     <th>Cédula Profesional</th>
                     <th>RFC</th>
                     <th>Correo Electrónico</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="cuerpoTabla">
-            </tbody>
+            <tbody id="cuerpoTabla"></tbody>
         </table>
     </main>
 
@@ -208,38 +257,80 @@
     </footer>
 
     <script>
-      const API_URL = "https://prueba-rmrd.onrender.com/api/doctores";
+        const API_URL = "https://prueba-rmrd.onrender.com/api/doctores";
+        let todosLosDoctores = [];
 
-      async function cargarDoctores() {
-        try {
-          const res = await fetch(API_URL);
-          const datos = await res.json();
-          const cuerpoTabla = document.getElementById('cuerpoTabla');
-          cuerpoTabla.innerHTML = "";
-
-          datos.forEach(d => {
-            const fila = document.createElement('tr');
-            fila.classList.add('texto_capital');
-            fila.innerHTML = `
-              <td>${d.id_medico ?? ''}</td>
-              <td>${d.nombre ?? ''}</td>
-              <td>${d.apellido_paterno ?? ''}</td>
-              <td>${d.apellido_materno ?? ''}</td>
-              <td>${d.genero ?? ''}</td>
-              <td>${d.especialidad ?? ''}</td>
-              <td>${d.cedula_profesional ?? ''}</td>
-              <td style="text-transform: uppercase;">${d.RFC ?? ''}</td>
-              <td style="text-transform: none;">${d.correo_electronico ?? ''}</td>
-            `;
-            cuerpoTabla.appendChild(fila);
-          });
-        } catch (error) {
-          console.error("Error al cargar doctores:", error);
+        async function cargarDoctores() {
+            try {
+                const res = await fetch(API_URL);
+                if (!res.ok) throw new Error("Error: " + res.status);
+                todosLosDoctores = await res.json();
+                renderTabla(todosLosDoctores);
+            } catch (error) {
+                console.error("Error al cargar doctores:", error);
+            }
         }
-      }
 
-      cargarDoctores();
+        function renderTabla(lista) {
+            const cuerpoTabla = document.getElementById('cuerpoTabla');
+            const contador = document.getElementById('contadorResultados');
+            cuerpoTabla.innerHTML = "";
+            contador.textContent = `Mostrando ${lista.length} registro(s)`;
+
+            lista.forEach(d => {
+                const fila = document.createElement('tr');
+                fila.classList.add('texto_capital');
+                fila.innerHTML = `
+                    <td>${d.id_medico ?? ''}</td>
+                    <td>${d.nombre ?? ''}</td>
+                    <td>${d.apellido_paterno ?? ''}</td>
+                    <td>${d.apellido_materno ?? ''}</td>
+                    <td>${d.genero ?? ''}</td>
+                    <td>${d.especialidad ?? ''}</td>
+                    <td>${d.cedula_profesional ?? ''}</td>
+                    <td style="text-transform:uppercase;">${d.RFC ?? ''}</td>
+                    <td style="text-transform:none;">${d.correo_electronico ?? ''}</td>
+                    <td><button class="btn_eliminar" onclick="eliminar('${d._id}')">🗑 Eliminar</button></td>
+                `;
+                cuerpoTabla.appendChild(fila);
+            });
+        }
+
+        async function eliminar(id) {
+            if (!confirm("¿Seguro que deseas eliminar este médico? Esta acción no se puede deshacer.")) return;
+            try {
+                const res = await fetch(API_URL + '/' + id, { method: 'DELETE' });
+                if (!res.ok) throw new Error("Error al eliminar");
+                todosLosDoctores = todosLosDoctores.filter(d => d._id !== id);
+                const textoBusqueda = document.getElementById('campoBusqueda').value;
+                filtrar(textoBusqueda);
+            } catch (error) {
+                alert("No se pudo eliminar. Revisa la consola (F12).");
+                console.error(error);
+            }
+        }
+
+        function filtrar(texto) {
+            const q = texto.toLowerCase().trim();
+            if (!q) {
+                renderTabla(todosLosDoctores);
+                return;
+            }
+            const filtrados = todosLosDoctores.filter(d =>
+                (d.nombre ?? '').toLowerCase().includes(q) ||
+                (d.apellido_paterno ?? '').toLowerCase().includes(q) ||
+                (d.apellido_materno ?? '').toLowerCase().includes(q) ||
+                (d.especialidad ?? '').toLowerCase().includes(q) ||
+                (d.RFC ?? '').toLowerCase().includes(q) ||
+                (d.correo_electronico ?? '').toLowerCase().includes(q) ||
+                String(d.id_medico ?? '').includes(q)
+            );
+            renderTabla(filtrados);
+        }
+
+        document.getElementById('campoBusqueda').addEventListener('input', e => filtrar(e.target.value));
+
+        cargarDoctores();
     </script>
 </body>
 </html>
-       
