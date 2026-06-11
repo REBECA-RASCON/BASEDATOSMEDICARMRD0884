@@ -199,16 +199,16 @@
             e.preventDefault(); // Detener recarga de pantalla tradicional
 
             // Estructurar el JSON tal como lo espera recibir el backend en Node.js
-            const nuevaCita = {
-                // Dentro de la función que guarda en tu HTML, asegúrate de que luzca así:
-                id_cita: Number(document.getElementById('id_cita').value), // Convierte a número
-                paciente_nombre: document.getElementById('paciente_nombre').value,
-                doctor_nombre: document.getElementById('doctor_nombre').value,
-                fecha: document.getElementById('fecha').value,
-                hora: document.getElementById('hora').value,
-                sala: document.getElementById('sala').value,
-                motivo_de_cita: document.getElementById('motivo_de_cita').value
-            };
+            // Asegúrate de que tu objeto en el HTML use exactamente estos nombres a la izquierda:
+                const datosCita = {
+                    id_cita: Number(document.getElementById('id_cita').value), 
+                    paciente_nombre: document.getElementById('paciente_nombre').value, // Antes decía 'paciente'
+                    doctor_nombre: document.getElementById('doctor_nombre').value,     // Antes decía 'doctor'
+                    fecha: document.getElementById('fecha').value,
+                    hora: document.getElementById('hora').value,
+                    sala: document.getElementById('sala').value,
+                    motivo_de_cita: document.getElementById('motivo_de_cita').value  // Antes decía 'motivo'
+                };
 
             try {
                 const respuesta = await fetch(API_URL, {
