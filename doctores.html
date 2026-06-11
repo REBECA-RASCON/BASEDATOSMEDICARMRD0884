@@ -198,106 +198,7 @@
                     <th>Correo Electrónico</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="texto_capital">
-                    <td>1396</td>
-                    <td>alicia</td>
-                    <td>alvarado</td>
-                    <td>orenda</td>
-                    <td>femenino</td>
-                    <td>medicina familiar</td>
-                    <td>3219844</td>
-                    <td style="text-transform: uppercase;">AAO12384</td>
-                    <td style="text-transform: none;">alicia.orenda@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>1397</td>
-                    <td>angelo</td>
-                    <td>carrendo</td>
-                    <td>prado</td>
-                    <td>masculino</td>
-                    <td>dermatologia</td>
-                    <td>6738829</td>
-                    <td style="text-transform: uppercase;">ACP5356</td>
-                    <td style="text-transform: none;">carrendo@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>1398</td>
-                    <td>pedro</td>
-                    <td>escalante</td>
-                    <td>roldan</td>
-                    <td>masculino</td>
-                    <td>medicina interna</td>
-                    <td>618284</td>
-                    <td style="text-transform: uppercase;">PER329289</td>
-                    <td style="text-transform: none;">roldan99@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>1399</td>
-                    <td>lorena elena</td>
-                    <td>esparza</td>
-                    <td>salazar</td>
-                    <td>femenino</td>
-                    <td>radiologia</td>
-                    <td>8877372</td>
-                    <td style="text-transform: uppercase;">LESR47732</td>
-                    <td style="text-transform: none;">lore72@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13100</td>
-                    <td>maria flor</td>
-                    <td>herrera</td>
-                    <td>vargas</td>
-                    <td>femenino</td>
-                    <td>urgencias</td>
-                    <td>1238920</td>
-                    <td style="text-transform: uppercase;">FHU238384</td>
-                    <td style="text-transform: none;">flor@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13101</td>
-                    <td>alfonso alan</td>
-                    <td>medina</td>
-                    <td>flores</td>
-                    <td>masculino</td>
-                    <td>cardiologia</td>
-                    <td>1556920</td>
-                    <td style="text-transform: uppercase;">AMF6367</td>
-                    <td style="text-transform: none;">electronico@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13111</td>
-                    <td>melisa alondra</td>
-                    <td>molina</td>
-                    <td>jimenez</td>
-                    <td>femenino</td>
-                    <td>medicina interna</td>
-                    <td>2093842</td>
-                    <td style="text-transform: uppercase;">MMJ6378</td>
-                    <td style="text-transform: none;">jimenez@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13111</td>
-                    <td>eleno</td>
-                    <td>perez</td>
-                    <td>ortega</td>
-                    <td>masculino</td>
-                    <td>oncologia</td>
-                    <td>3241838</td>
-                    <td style="text-transform: uppercase;">EPO53672</td>
-                    <td style="text-transform: none;">ort@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13113</td>
-                    <td>christian</td>
-                    <td>rivera</td>
-                    <td>tamez</td>
-                    <td>masculino</td>
-                    <td>psiquiatria</td>
-                    <td>673722</td>
-                    <td style="text-transform: uppercase;">CRT64321</td>
-                    <td style="text-transform: none;">rivera@gmail.com</td>
-                </tr>
+            <tbody id="cuerpoTabla">
             </tbody>
         </table>
     </main>
@@ -306,5 +207,40 @@
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
 
+    <script>
+      const API_URL = "https://8080-firebase-rasconrebeca0884-1771872216971.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev/api/doctores";
+
+      async function cargarDoctores() {
+        try {
+          const res = await fetch(API_URL);
+          const datos = await res.json();
+          const cuerpoTabla = document.getElementById('cuerpoTabla');
+          cuerpoTabla.innerHTML = "";
+
+          datos.forEach(d => {
+            const fila = document.createElement('tr');
+            fila.classList.add('texto_capital');
+            fila.innerHTML = `
+              <td>${d.id_medico ?? ''}</td>
+              <td>${d.nombre ?? ''}</td>
+              <td>${d.apellido_paterno ?? ''}</td>
+              <td>${d.apellido_materno ?? ''}</td>
+              <td>${d.genero ?? ''}</td>
+              <td>${d.especialidad ?? ''}</td>
+              <td>${d.cedula_profesional ?? ''}</td>
+              <td style="text-transform: uppercase;">${d.RFC ?? ''}</td>
+              <td style="text-transform: none;">${d.correo_electronico ?? ''}</td>
+            `;
+            cuerpoTabla.appendChild(fila);
+          });
+        } catch (error) {
+          console.error("Error al cargar doctores:", error);
+        }
+      }
+
+      cargarDoctores();
+    </script>
 </body>
 </html>
+        
+       
