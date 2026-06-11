@@ -200,115 +200,7 @@
                     <th>Correo Electrónico</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="texto_capital">
-                    <td>13959</td>
-                    <td>Elena Clara</td>
-                    <td>Avila</td>
-                    <td>Rodriguez</td>
-                    <td>femenino</td>
-                    <td>limpieza</td>
-                    <td>esterilizacion de equipo</td>
-                    <td>30415012</td>
-                    <td style="text-transform: uppercase;">ECA37498</td>
-                    <td style="text-transform: none;">avila.Elena@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13961</td>
-                    <td>Angel David</td>
-                    <td>Gomez</td>
-                    <td>Aguilar</td>
-                    <td>masculino</td>
-                    <td>guardia</td>
-                    <td>puerta principal</td>
-                    <td>91427210</td>
-                    <td style="text-transform: uppercase;">ADGA321</td>
-                    <td style="text-transform: none;">DavidGomez@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13963</td>
-                    <td>Laura</td>
-                    <td>Mendoza</td>
-                    <td>Morales</td>
-                    <td>femenino</td>
-                    <td>recepcionista</td>
-                    <td>atencion al cliente</td>
-                    <td>10323280</td>
-                    <td style="text-transform: uppercase;">LUM4361</td>
-                    <td style="text-transform: none;">Mendoza@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13965</td>
-                    <td>Lorenzo</td>
-                    <td>Sanchez</td>
-                    <td>Camargo</td>
-                    <td>masculino</td>
-                    <td>contador</td>
-                    <td>finanzas</td>
-                    <td>43435645</td>
-                    <td style="text-transform: uppercase;">LSC56723</td>
-                    <td style="text-transform: none;">camargosa@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>13967</td>
-                    <td>Eliana Luz</td>
-                    <td>Torres</td>
-                    <td>Luiz</td>
-                    <td>femenino</td>
-                    <td>enfermera</td>
-                    <td>cuidados intensivos</td>
-                    <td>782834</td>
-                    <td style="text-transform: uppercase;">ELTL567</td>
-                    <td style="text-transform: none;">luztorres@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>30592</td>
-                    <td>Luis Armando</td>
-                    <td>Barraza</td>
-                    <td>Calvo</td>
-                    <td>masculino</td>
-                    <td>enfermero</td>
-                    <td>pediatra</td>
-                    <td>782834</td>
-                    <td style="text-transform: uppercase;">LABC567</td>
-                    <td style="text-transform: none;">barraza@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>30567</td>
-                    <td>Alberta</td>
-                    <td>Chavez</td>
-                    <td>Corrales</td>
-                    <td>femenino</td>
-                    <td>enfermera</td>
-                    <td>quirurgica</td>
-                    <td>738712</td>
-                    <td style="text-transform: uppercase;">ACC567</td>
-                    <td style="text-transform: none;">corrales@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>30564</td>
-                    <td>Mara</td>
-                    <td>Reyes</td>
-                    <td>Gomez</td>
-                    <td>femenino</td>
-                    <td>seguridad</td>
-                    <td>camaras de seguridad</td>
-                    <td>973721</td>
-                    <td style="text-transform: uppercase;">MRG4566</td>
-                    <td style="text-transform: none;">maraR@gmail.com</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>30589</td>
-                    <td>Guillermo</td>
-                    <td>Flores</td>
-                    <td>Garcia</td>
-                    <td>masculino</td>
-                    <td>limpieza</td>
-                    <td>sanitarios</td>
-                    <td>12330934</td>
-                    <td style="text-transform: uppercase;">GFG6134859</td>
-                    <td style="text-transform: none;">floresg@gmail.com</td>
-                </tr>
+            <tbody id="cuerpoTabla">
             </tbody>
         </table>
 
@@ -318,5 +210,39 @@
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
 
+    <script>
+      const API_URL = "https://8080-firebase-rasconrebeca0884-1771872216971.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev/api/personal";
+
+      async function cargarPersonal() {
+        try {
+          const res = await fetch(API_URL);
+          const datos = await res.json();
+          const cuerpoTabla = document.getElementById('cuerpoTabla');
+          cuerpoTabla.innerHTML = "";
+
+          datos.forEach(p => {
+            const fila = document.createElement('tr');
+            fila.classList.add('texto_capital');
+            fila.innerHTML = `
+              <td>${p.id_personal ?? ''}</td>
+              <td>${p.nombre ?? ''}</td>
+              <td>${p.apellido_paterno ?? ''}</td>
+              <td>${p.apellido_materno ?? ''}</td>
+              <td>${p.genero ?? ''}</td>
+              <td>${p.rol ?? ''}</td>
+              <td>${p.especialidad ?? ''}</td>
+              <td>${p.cedula_profesional ?? ''}</td>
+              <td style="text-transform: uppercase;">${p.RFC ?? ''}</td>
+              <td style="text-transform: none;">${p.correo_electronico ?? ''}</td>
+            `;
+            cuerpoTabla.appendChild(fila);
+          });
+        } catch (error) {
+          console.error("Error al cargar personal:", error);
+        }
+      }
+
+      cargarPersonal();
+    </script>
 </body>
 </html>
