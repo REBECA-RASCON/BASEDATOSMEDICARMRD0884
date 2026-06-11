@@ -191,79 +191,8 @@
                     <th>Motivo de la Cita</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>354477</td>
-                    <td>Odette Marquez Pinto</td>
-                    <td>Roberto Aguilar</td>
-                    <td>12/02/26</td>
-                    <td>1:00 pm</td>
-                    <td>sala 15</td>
-                    <td>malestar estomacal</td>
-                </tr>
-                <tr>
-                    <td>2351274</td>
-                    <td>Alonso Armendariz</td>
-                    <td>Lorena Esparza</td>
-                    <td>14/02/26</td>
-                    <td>1:30 pm</td>
-                    <td>sala 2</td>
-                    <td>malestar</td>
-                </tr>
-                <tr>
-                    <td>3549776</td>
-                    <td>Olga Alfonso Enriquez</td>
-                    <td>Maria Herrera</td>
-                    <td>13/02/26</td>
-                    <td>10:30 am</td>
-                    <td>sala 20</td>
-                    <td>Fiebre, dolor</td>
-                </tr>
-                <tr>
-                    <td>805280</td>
-                    <td>Bonita fuentes Rosales</td>
-                    <td>Pedro Escalante</td>
-                    <td>20/02/26</td>
-                    <td>11:30 am</td>
-                    <td>Sala 1</td>
-                    <td>Dolor al mover brazo</td>
-                </tr>
-                <tr>
-                    <td>3261281</td>
-                    <td>Cassandra Franco sanchez</td>
-                    <td>Melisa Jimenez</td>
-                    <td>10/02/26</td>
-                    <td>3:30 pm</td>
-                    <td>Sala 15</td>
-                    <td>lunares sospechosos</td>
-                </tr>
-                <tr>
-                    <td>7740512</td>
-                    <td>Fiona de la cruz</td>
-                    <td>Elena perez</td>
-                    <td>25/02/26</td>
-                    <td>4:00 pm</td>
-                    <td>sala 21</td>
-                    <td>Aceleracion del corazon</td>
-                </tr>
-                <tr>
-                    <td>4451282</td>
-                    <td>Donovan Carrion Carrillo</td>
-                    <td>Alan Medina</td>
-                    <td>25/02/26</td>
-                    <td>1:30 pm</td>
-                    <td>sala 4</td>
-                    <td>Dificultad al moverse</td>
-                </tr>
-                <tr>
-                    <td>645584</td>
-                    <td>Francisco Quiñones</td>
-                    <td>Cristian Rivera</td>
-                    <td>30/02/26</td>
-                    <td>2:20 pm</td>
-                    <td>sala 7</td>
-                    <td>Fiebre</td>
-                </tr>
+            <tbody id="cuerpoTabla">
+                
             </tbody>
         </table>
     </main>
@@ -271,7 +200,38 @@
     <footer>
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
+<script>
+  const API_URL = "https://8080-firebase-rasconrebeca0884-1771872216971.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev/api/citas";
 
+  async function cargarCitas() {
+    try {
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error("Error: " + res.status);
+      const citas = await res.json();
+
+      const cuerpoTabla = document.getElementById('cuerpoTabla');
+      cuerpoTabla.innerHTML = "";
+
+      citas.forEach(cita => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${cita.id_cita ?? ''}</td>
+          <td>${cita.paciente_nombre ?? ''}</td>
+          <td>${cita.doctor_nombre ?? ''}</td>
+          <td>${cita.fecha ?? ''}</td>
+          <td>${cita.hora ?? ''}</td>
+          <td>${cita.sala ?? ''}</td>
+          <td>${cita.motivo_de_cita ?? ''}</td>
+        `;
+        cuerpoTabla.appendChild(fila);
+      });
+    } catch (error) {
+      console.error("Error al cargar citas:", error);
+    }
+  }
+
+  cargarCitas();
+</script>
 </body>
 </html>
 
