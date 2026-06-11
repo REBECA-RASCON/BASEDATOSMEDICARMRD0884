@@ -232,7 +232,7 @@
 
         <h2>Registro de Médicos</h2>
         
-        <form action="#" method="POST">
+        <form id="formDoctor" action="#" method="POST">
             <div class="grupo_campo">
                 <label for="idMedico">ID Médico:</label>
                 <input type="text" id="idMedico" name="idMedico" placeholder="Ej. 1396" required>
@@ -291,6 +291,39 @@
     <footer>
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
-    
+
+    <script>
+      const API_URL = "https://8080-firebase-rasconrebeca0884-1771872216971.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev/api/doctores";
+
+      document.getElementById('formDoctor').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const datos = {
+          id_medico: Number(document.getElementById('idMedico').value),
+          nombre: document.getElementById('nombreMedico').value,
+          apellido_paterno: document.getElementById('apellidoPaternoMedico').value,
+          apellido_materno: document.getElementById('apellidoMaternoMedico').value,
+          genero: document.getElementById('genero').value,
+          especialidad: document.getElementById('especialidad').value,
+          cedula_profesional: Number(document.getElementById('cedula').value),
+          RFC: document.getElementById('rfc').value,
+          correo_electronico: document.getElementById('correo').value
+        };
+
+        try {
+          const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+          });
+          if (!res.ok) throw new Error("Error: " + res.status);
+          alert("¡Médico registrado con éxito!");
+          this.reset();
+        } catch (error) {
+          console.error("Error al registrar médico:", error);
+          alert("No se pudo guardar. Revisa la consola (F12).");
+        }
+      });
+    </script>
 </body>
 </html>
