@@ -179,10 +179,10 @@
     </header>
 
     <nav class="menu_navegacion">
-        <a href="formupacie.html">Clientes</a>
-        <a href="formdoctores.html">Médicos</a>
-        <a href="formpersonal.html">Personal</a>
-        <a href="formcitas.html">Citas</a>
+        <a href="pacientes.html">Clientes</a>
+        <a href="doctores.html">Médicos</a>
+        <a href="personal.html">Personal</a>
+        <a href="citas.html">Citas</a>
     </nav>
 
     <main class="contenedor_formulario">
@@ -199,7 +199,7 @@
 
         <h2>Registro de Personal</h2>
         
-        <form action="#" method="POST">
+        <form id="formPersonal" action="#" method="POST">
             <div class="grupo_campo">
                 <label for="idPersonal">ID Personal:</label>
                 <input type="text" id="idPersonal" name="idPersonal" placeholder="Ej. 13959" required>
@@ -263,5 +263,39 @@
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
 
+    <script>
+      const API_URL = "https://8080-firebase-rasconrebeca0884-1771872216971.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev/api/personal";
+
+      document.getElementById('formPersonal').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const datos = {
+          id_personal: Number(document.getElementById('idPersonal').value),
+          nombre: document.getElementById('nombre').value,
+          apellido_paterno: document.getElementById('apellidoPaterno').value,
+          apellido_materno: document.getElementById('apellidoMaterno').value,
+          genero: document.getElementById('genero').value,
+          rol: document.getElementById('rol').value,
+          especialidad: document.getElementById('especialidad').value,
+          cedula_profesional: Number(document.getElementById('cedula').value),
+          RFC: document.getElementById('rfc').value,
+          correo_electronico: document.getElementById('correo').value
+        };
+
+        try {
+          const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+          });
+          if (!res.ok) throw new Error("Error: " + res.status);
+          alert("¡Personal registrado con éxito!");
+          this.reset();
+        } catch (error) {
+          console.error("Error al registrar personal:", error);
+          alert("No se pudo guardar. Revisa la consola (F12).");
+        }
+      });
+    </script>
 </body>
 </html>
