@@ -225,7 +225,7 @@
 
         <h2>Registro de Citas Médicas</h2>
         
-        <form action="#" method="POST">
+        <form id="formCita" action="#" method="POST">
             <div class="grupo_campo">
                 <label for="id_cita">ID Cita:</label>
                 <input type="number" id="id_cita" name="id_cita" placeholder="Ej. 354477" required>
@@ -269,7 +269,40 @@
     <footer>
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
-    
+ <script>
+  const API_URL = "https://8080-firebase-rasconrebeca0884-1771872216971.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev/api/citas";
+
+  document.getElementById('formCita').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Mapeamos los nombres del formulario a los nombres que espera la base de datos
+    const datos = {
+      id_cita: Number(document.getElementById('id_cita').value),
+      paciente_nombre: document.getElementById('paciente').value,
+      doctor_nombre: document.getElementById('doctor').value,
+      fecha: document.getElementById('fecha').value,
+      hora: document.getElementById('hora').value,
+      sala: document.getElementById('sala').value,
+      motivo_de_cita: document.getElementById('motivo').value
+    };
+
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+
+      if (!res.ok) throw new Error("Error al guardar: " + res.status);
+
+      alert("¡Cita registrada con éxito!");
+      this.reset();
+    } catch (error) {
+      console.error("Error al registrar cita:", error);
+      alert("No se pudo guardar la cita. Revisa la consola (F12).");
+    }
+  });
+</script>  
 </body>
 </html>
         
