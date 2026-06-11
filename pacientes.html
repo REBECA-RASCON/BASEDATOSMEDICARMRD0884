@@ -197,97 +197,7 @@
                     <th>Condiciones Médicas</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="texto_capital">
-                    <td>1</td>
-                    <td>Alonso</td>
-                    <td>Armendariz</td>
-                    <td>Dominguez</td>
-                    <td>02/03/1996</td>
-                    <td>masculino</td>
-                    <td style="text-transform: uppercase;">AB+</td>
-                    <td>Depresion</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>3</td>
-                    <td>Cassandra</td>
-                    <td>Franco</td>
-                    <td>Sanchez</td>
-                    <td>14/01/2001</td>
-                    <td>femenino</td>
-                    <td style="text-transform: uppercase;">A-</td>
-                    <td>Obesidad</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>4</td>
-                    <td>Donovan</td>
-                    <td>Carreon</td>
-                    <td>Carrillo</td>
-                    <td>14/01/1985</td>
-                    <td>masculino</td>
-                    <td style="text-transform: uppercase;">B+</td>
-                    <td>Artritis</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>5</td>
-                    <td>Fiona Lisa</td>
-                    <td>De la Cruz</td>
-                    <td>Meza</td>
-                    <td>15/06/1986</td>
-                    <td>femenino</td>
-                    <td style="text-transform: uppercase;">O+</td>
-                    <td>Diabetes mellinus (tipo 2)</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>6</td>
-                    <td>Francisco</td>
-                    <td>Quiñones</td>
-                    <td>Villa</td>
-                    <td>20/21/1964</td>
-                    <td>masculino</td>
-                    <td style="text-transform: uppercase;">B-</td>
-                    <td>Fibromalgia</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>7</td>
-                    <td>Karla</td>
-                    <td>Castillo</td>
-                    <td>Ramirez</td>
-                    <td>03/11/1958</td>
-                    <td>femenino</td>
-                    <td style="text-transform: uppercase;">A-</td>
-                    <td>Infartos previos</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>8</td>
-                    <td>Odette</td>
-                    <td>Marquez</td>
-                    <td>Pinto</td>
-                    <td>01/01/2001</td>
-                    <td>femenino</td>
-                    <td style="text-transform: uppercase;">O+</td>
-                    <td>Asma, psicosis</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>9</td>
-                    <td>Olga</td>
-                    <td>Alfonso</td>
-                    <td>Enriquez</td>
-                    <td>27/05/1997</td>
-                    <td>femenino</td>
-                    <td style="text-transform: uppercase;">A+</td>
-                    <td>Esclorosis multipe</td>
-                </tr>
-                <tr class="texto_capital">
-                    <td>10</td>
-                    <td>Zoe Ximena</td>
-                    <td>Zapata</td>
-                    <td>Garcia</td>
-                    <td>24/09/2005</td>
-                    <td>femenino</td>
-                    <td style="text-transform: uppercase;">AB+</td>
-                    <td>Alcoholismo</td>
-                </tr>
+            <tbody id="cuerpoTabla">
             </tbody>
         </table>
     </main>
@@ -296,5 +206,37 @@
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
 
+    <script>
+      const API_URL = "https://8080-firebase-rasconrebeca0884-1771872216971.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev/api/pacientes";
+
+      async function cargarPacientes() {
+        try {
+          const res = await fetch(API_URL);
+          const datos = await res.json();
+          const cuerpoTabla = document.getElementById('cuerpoTabla');
+          cuerpoTabla.innerHTML = "";
+
+          datos.forEach(p => {
+            const fila = document.createElement('tr');
+            fila.classList.add('texto_capital');
+            fila.innerHTML = `
+              <td>${p.id_paciente ?? ''}</td>
+              <td>${p.nombre ?? ''}</td>
+              <td>${p.apellido_paterno ?? ''}</td>
+              <td>${p.apellido_materno ?? ''}</td>
+              <td>${p.fecha_nacimiento ?? ''}</td>
+              <td>${p.genero ?? ''}</td>
+              <td style="text-transform: uppercase;">${p.tipo_sangre ?? ''}</td>
+              <td>${p.condiciones_medicas ?? ''}</td>
+            `;
+            cuerpoTabla.appendChild(fila);
+          });
+        } catch (error) {
+          console.error("Error al cargar pacientes:", error);
+        }
+      }
+
+      cargarPacientes();
+    </script>
 </body>
 </html>
