@@ -192,7 +192,6 @@
                 </tr>
             </thead>
             <tbody id="cuerpoTabla">
-                
             </tbody>
         </table>
     </main>
@@ -200,39 +199,38 @@
     <footer>
         REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
     </footer>
-<script>
-  const API_URL = "https://8080-firebase-rasconrebeca0884-1771872216971.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev/api/citas";
 
-  async function cargarCitas() {
-    try {
-      const res = await fetch(API_URL);
-      if (!res.ok) throw new Error("Error: " + res.status);
-      const citas = await res.json();
+    <script>
+      const API_URL = "https://prueba-rmrd.onrender.com/api/citas";
 
-      const cuerpoTabla = document.getElementById('cuerpoTabla');
-      cuerpoTabla.innerHTML = "";
+      async function cargarCitas() {
+        try {
+          const res = await fetch(API_URL);
+          if (!res.ok) throw new Error("Error: " + res.status);
+          const citas = await res.json();
 
-      citas.forEach(cita => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-          <td>${cita.id_cita ?? ''}</td>
-          <td>${cita.paciente_nombre ?? ''}</td>
-          <td>${cita.doctor_nombre ?? ''}</td>
-          <td>${cita.fecha ?? ''}</td>
-          <td>${cita.hora ?? ''}</td>
-          <td>${cita.sala ?? ''}</td>
-          <td>${cita.motivo_de_cita ?? ''}</td>
-        `;
-        cuerpoTabla.appendChild(fila);
-      });
-    } catch (error) {
-      console.error("Error al cargar citas:", error);
-    }
-  }
+          const cuerpoTabla = document.getElementById('cuerpoTabla');
+          cuerpoTabla.innerHTML = "";
 
-  cargarCitas();
-</script>
+          citas.forEach(cita => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+              <td>${cita.id_cita ?? ''}</td>
+              <td>${cita.paciente_nombre ?? ''}</td>
+              <td>${cita.doctor_nombre ?? ''}</td>
+              <td>${cita.fecha ?? ''}</td>
+              <td>${cita.hora ?? ''}</td>
+              <td>${cita.sala ?? ''}</td>
+              <td>${cita.motivo_de_cita ?? ''}</td>
+            `;
+            cuerpoTabla.appendChild(fila);
+          });
+        } catch (error) {
+          console.error("Error al cargar citas:", error);
+        }
+      }
+
+      cargarCitas();
+    </script>
 </body>
 </html>
-
-       
