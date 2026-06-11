@@ -3,151 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Citas Médicas</title>
+    <title>Registro de Citas - Consultorio Médico RMRD</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 0;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
+            padding: 0;
+            background-color: #e6f0fa;
+            color: #333333;
         }
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 500px;
+
+        .cabecera {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px 20px;
+            gap: 15px;
+            border-bottom: 4px solid #002060;
         }
-        h2 {
+
+        .cabecera h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: #002060;
+            margin: 0;
+            font-size: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             text-align: center;
-            color: #2c3e50;
+        }
+
+        .logo_contenedor img {
+            height: 90px;
+            background-color: white;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .menu_navegacion {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f0f6fc;
+            padding: 15px 0;
+            border-bottom: 1px solid #b0c9f0;
+        }
+
+        .menu_navegacion a {
+            font-family: 'Montserrat', sans-serif;
+            color: #2a75d3;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+
+        .menu_navegacion a:hover {
+            color: #002060;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contenedor_formulario {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 32, 96, 0.08);
+            border: 1px solid #b0c9f0;
+        }
+
+        .contenedor_formulario h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #002060;
+            text-align: center;
             margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 22px;
+            letter-spacing: 1px;
         }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #34495e;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
+
+        .barra_botones {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+        }
+
+        .boton_volver {
+            color: #555;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .boton_volver:hover {
+            color: #002060;
+        }
+
+        .boton_tabla {
+            display: inline-block;
+            padding: 10px 18px;
+            background-color: #002060;
+            color: white;
             border-radius: 4px;
-            box-sizing: border-box;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton_tabla:hover {
+            background-color: #2a75d3;
+        }
+
+        .grupo_campo {
+            margin-bottom: 20px;
+        }
+
+        .grupo_campo label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #002060;
             font-size: 14px;
         }
-        input:focus, textarea:focus {
-            border-color: #3498db;
-            outline: none;
+
+        .grupo_campo input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #b0c9f0;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #fbfdfc;
+            transition: all 0.3s ease;
         }
-        button {
+
+        .grupo_campo input:focus {
+            outline: none;
+            border-color: #002060;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 32, 96, 0.15);
+        }
+
+        .boton_enviar {
             width: 100%;
             padding: 12px;
-            background-color: #2980b9;
+            background-color: #002060;
             color: white;
             border: none;
             border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             font-size: 16px;
-            font-weight: bold;
+            text-transform: uppercase;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
         }
-        button:hover {
-            background-color: #1f618d;
+
+        .boton_enviar:hover {
+            background-color: #2a75d3;
         }
-        .back-link {
-            display: block;
+
+        footer {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 60px;
+            padding: 15px;
+            border-top: 2px dashed #002060;
+            font-size: 11px;
+            color: #555555;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             text-align: center;
-            margin-top: 15px;
-            color: #7f8c8d;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .back-link:hover {
-            color: #2980b9;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>REGISTRO DE CITA MÉDICA</h2>
+    <header class="cabecera">
+        <h1>Consultorio Médico RMRD</h1>
+        <div class="logo_contenedor">
+            <img src="logo2.png" alt="Logo Consultorio">
+        </div>
+    </header>
+
+    <nav class="menu_navegacion">
+        <a href="pacientes.html">Clientes</a>
+        <a href="doctores.html">Médicos</a>
+        <a href="personal.html">Personal</a>
+        <a href="citas.html">Citas</a>
+    </nav>
+
+    <main class="contenedor_formulario">
+
+        <div class="barra_botones">
+            <a href="index.html" class="boton_volver">
+                &larr; Volver al Menú Principal
+            </a>
+
+            <a href="citas.html" class="boton_tabla">
+                Ver Tabla de Citas
+            </a>
+        </div>
+
+        <h2>Registro de Citas Médicas</h2>
+        
+        <form action="#" method="POST">
+            <div class="grupo_campo">
+                <label for="id_cita">ID Cita:</label>
+                <input type="number" id="id_cita" name="id_cita" placeholder="Ej. 354477" required>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="paciente">Nombre del Paciente:</label>
+                <input type="text" id="paciente" name="paciente" placeholder="Ej. Odette Marquez Pinto" required>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="doctor">Médico Asignado:</label>
+                <input type="text" id="doctor" name="doctor" placeholder="Ej. Roberto Aguilar" required>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="fecha">Fecha de la Cita:</label>
+                <input type="text" id="fecha" name="fecha" placeholder="Ej. 12/02/26" required>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="hora">Hora:</label>
+                <input type="text" id="hora" name="hora" placeholder="Ej. 1:00 pm" required>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="sala">Sala Asignada:</label>
+                <input type="text" id="sala" name="sala" placeholder="Ej. Sala 15" required>
+            </div>
+
+            <div class="grupo_campo">
+                <label for="motivo">Motivo de la Cita:</label>
+                <input type="text" id="motivo" name="motivo" placeholder="Ej. Malestar estomacal" required>
+            </div>
+
+            <button type="submit" class="boton_enviar">Registrar Nueva Cita</button>
+        </form>
+
+    </main>
+
+    <footer>
+        REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
+    </footer>
     
-    <form id="formCitas">
-        <label for="id_cita">ID CITA:</label>
-        <input type="number" id="id_cita" required placeholder="Ej: 34577">
-
-        <label for="paciente">NOMBRE DEL PACIENTE:</label>
-        <input type="text" id="paciente" required placeholder="Nombre completo del paciente">
-
-        <label for="doctor">MÉDICO ASIGNADO:</label>
-        <input type="text" id="doctor" required placeholder="Nombre del doctor">
-
-        <label for="fecha">FECHA DE LA CITA:</label>
-        <input type="text" id="fecha" required placeholder="Ej: 12/02/26">
-
-        <label for="hora">HORA:</label>
-        <input type="text" id="hora" required placeholder="Ej: 1:00 pm">
-
-        <label for="sala">SALA ASIGNADA:</label>
-        <input type="text" id="sala" required placeholder="Ej: Sala 15">
-
-        <label for="motivo">MOTIVO DE LA CONSULTA:</label>
-        <textarea id="motivo" rows="3" required placeholder="Describa el motivo médico..."></textarea>
-
-        <button type="submit">INSERTAR REGISTRO</button>
-    </form>
-
-    <a href="citas.html" class="back-link">← Cancelar y Volver</a>
-</div>
-
-<script>
-    document.getElementById('formCitas').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        // CONSTRUCCIÓN DEL OBJETO CON LOS CAMPOS IDENTICOS A TU BASE DE DATOS
-        const datosCita = {
-            id_cita: Number(document.getElementById('id_cita').value),
-            paciente_nombre: document.getElementById('paciente').value,
-            doctor_nombre: document.getElementById('doctor').value,
-            fecha: document.getElementById('fecha').value,
-            hora: document.getElementById('hora').value,
-            sala: document.getElementById('sala').value,
-            motivo_de_cita: document.getElementById('motivo').value
-        };
-
-        // ENVÍO DIRECTO A TU BACKEND DE FIREBASE STUDIO
-        fetch('https://8080-rasconrebeca0884-84541037.idxdev.googleusercontent.com/api/citas', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datosCita)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la respuesta del servidor backend');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // MENSAJE DE ÉXITO VISIBLE ESPERADO
-            alert('¡Excelente! Cita registrada correctamente en MongoDB Atlas.');
-            document.getElementById('formCitas').reset(); // Limpia el formulario
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error: No se pudo conectar con el servidor. Verifica que Firebase Studio esté encendido.');
-        });
-    });
-</script>
-
 </body>
 </html>
+        
