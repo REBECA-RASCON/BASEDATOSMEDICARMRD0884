@@ -3,153 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualización de Citas Médicas</title>
+    <title>Registro de Citas - Consultorio Médico RMRD</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            padding: 40px;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
+            padding: 0;
+            background-color: #e6f0fa;
+            color: #333333;
         }
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 1000px;
-            margin: 0 auto;
+
+        .cabecera {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px 20px;
+            border-bottom: 4px solid #002060;
         }
-        h2 {
+
+        .cabecera h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: #002060;
+            margin: 0;
+            font-size: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 25px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+
+        /* === BARRA DE NAVEGACIÓN === */
+        .menu_navegacion {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f0f6fc;
+            padding: 15px 0;
+            border-bottom: 1px solid #b0c9f0;
         }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+
+        .menu_navegacion a {
+            font-family: 'Montserrat', sans-serif;
+            color: #2a75d3;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
         }
-        th {
-            background-color: #2980b9;
-            color: white;
-            font-weight: bold;
+
+        .menu_navegacion a:hover {
+            color: #002060;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
-        tr:hover {
-            background-color: #f5f5f5;
+
+        /* === CONTENEDOR TABLA === */
+        .contenedor_tabla {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
         }
-        .btn-refresh {
-            background-color: #27ae60;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-            transition: background 0.3s;
+
+        .contenedor_tabla h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #2a75d3;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 22px;
         }
-        .btn-refresh:hover {
-            background-color: #219150;
-        }
-        .actions-container {
+
+        /* === BOTONES SUPERIORES === */
+        .barra_botones {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
-        .add-link {
-            color: #2980b9;
+
+        .boton_volver {
+            color: #555;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            transition: color 0.3s;
         }
-        .add-link:hover {
-            text-decoration: underline;
+
+        .boton_volver:hover {
+            color: #002060;
         }
-        .no-data {
+
+        .boton_formulario {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #002060;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton_formulario:hover {
+            background-color: #2a75d3;
+        }
+
+        /* === TABLA === */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        th {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #002060;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #002060;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #b0c9f0;
+        }
+
+        footer {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 60px;
+            padding: 15px;
+            border-top: 2px dashed #002060;
+            font-size: 11px;
+            color: #555555;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             text-align: center;
-            color: #7f8c8d;
-            padding: 20px;
-            font-style: italic;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>LISTADO DE CITAS MÉDICAS REGISTRADAS</h2>
+    <header class="cabecera">
+        <h1>Consultorio Médico RMRD</h1>
+    </header>
 
-    <div class="actions-container">
-        <a href="formcitas.html" class="add-link">+ Registrar Nueva Cita</a>
-        <button class="btn-refresh" onclick="obtenerCitas()">🔄 Actualizar Tabla</button>
-    </div>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>ID CITA</th>
-                <th>PACIENTE</th>
-                <th>MÉDICO</th>
-                <th>FECHA</th>
-                <th>HORA</th>
-                <th>SALA</th>
-                <th>MOTIVO</th>
-            </tr>
-        </thead>
-        <tbody id="tablaCitas">
-            </tbody>
-    </table>
-</div>
+    <nav class="menu_navegacion">
+        <a href="pacientes.html">Clientes</a>
+        <a href="doctores.html">Médicos</a>
+        <a href="personal.html">Personal</a>
+        <a href="citas.html">Citas</a>
+    </nav>
 
-<script>
-    // FUNCIÓN PARA SOLICITAR LAS CITAS AL BACKEND
-    function obtenerCitas() {
-        const tbody = document.getElementById('tablaCitas');
+    <main class="contenedor_tabla">
+
+        <div class="barra_botones">
+            <a href="index.html" class="boton_volver">&larr; Volver al Menú Principal</a>
+            <a href="formcitas" class="boton_formulario">+ Registrar Nueva Cita</a>
+        </div>
+
+        <h2>CITAS</h2>
         
-        // Consultar tu servidor en Firebase Studio
-        fetch('https://8080-rasconrebeca0884-84541037.idxdev.googleusercontent.com/api/citas')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error al conectar con el servidor');
-                }
-                return response.json();
-            })
-            .then(citas => {
-                tbody.innerHTML = ''; // Limpiar la tabla antes de rellenar
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Cita</th>
+                    <th>Paciente</th>
+                    <th>Doctor</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Sala</th>
+                    <th>Motivo de la Cita</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>354477</td>
+                    <td>Odette Marquez Pinto</td>
+                    <td>Roberto Aguilar</td>
+                    <td>12/02/26</td>
+                    <td>1:00 pm</td>
+                    <td>sala 15</td>
+                    <td>malestar estomacal</td>
+                </tr>
+                <tr>
+                    <td>2351274</td>
+                    <td>Alonso Armendariz</td>
+                    <td>Lorena Esparza</td>
+                    <td>14/02/26</td>
+                    <td>1:30 pm</td>
+                    <td>sala 2</td>
+                    <td>malestar</td>
+                </tr>
+                <tr>
+                    <td>3549776</td>
+                    <td>Olga Alfonso Enriquez</td>
+                    <td>Maria Herrera</td>
+                    <td>13/02/26</td>
+                    <td>10:30 am</td>
+                    <td>sala 20</td>
+                    <td>Fiebre, dolor</td>
+                </tr>
+                <tr>
+                    <td>805280</td>
+                    <td>Bonita fuentes Rosales</td>
+                    <td>Pedro Escalante</td>
+                    <td>20/02/26</td>
+                    <td>11:30 am</td>
+                    <td>Sala 1</td>
+                    <td>Dolor al mover brazo</td>
+                </tr>
+                <tr>
+                    <td>3261281</td>
+                    <td>Cassandra Franco sanchez</td>
+                    <td>Melisa Jimenez</td>
+                    <td>10/02/26</td>
+                    <td>3:30 pm</td>
+                    <td>Sala 15</td>
+                    <td>lunares sospechosos</td>
+                </tr>
+                <tr>
+                    <td>7740512</td>
+                    <td>Fiona de la cruz</td>
+                    <td>Elena perez</td>
+                    <td>25/02/26</td>
+                    <td>4:00 pm</td>
+                    <td>sala 21</td>
+                    <td>Aceleracion del corazon</td>
+                </tr>
+                <tr>
+                    <td>4451282</td>
+                    <td>Donovan Carrion Carrillo</td>
+                    <td>Alan Medina</td>
+                    <td>25/02/26</td>
+                    <td>1:30 pm</td>
+                    <td>sala 4</td>
+                    <td>Dificultad al moverse</td>
+                </tr>
+                <tr>
+                    <td>645584</td>
+                    <td>Francisco Quiñones</td>
+                    <td>Cristian Rivera</td>
+                    <td>30/02/26</td>
+                    <td>2:20 pm</td>
+                    <td>sala 7</td>
+                    <td>Fiebre</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
 
-                if (citas.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="7" class="no-data">No hay citas médicas registradas en este momento.</td></tr>`;
-                    return;
-                }
-
-                // RECÓRRER CADA CITA UTILIZANDO LOS CAMPOS CORREGIDOS
-                citas.forEach(cita => {
-                    const fila = document.createElement('tr');
-                    fila.innerHTML = `
-                        <td><strong>${cita.id_cita || ''}</strong></td>
-                        <td>${cita.paciente_nombre || 'Sin nombre'}</td>
-                        <td>${cita.doctor_nombre || 'Sin médico'}</td>
-                        <td>${cita.fecha || ''}</td>
-                        <td>${cita.hora || ''}</td>
-                        <td>${cita.sala || ''}</td>
-                        <td>${cita.motivo_de_cita || ''}</td>
-                    `;
-                    tbody.appendChild(fila);
-                });
-            })
-            .catch(error => {
-                console.error('Error al cargar citas:', error);
-                tbody.innerHTML = `<tr><td colspan="7" class="no-data" style="color: #c0392b;">Error: No se pudo conectar con el servidor. Verifica que Firebase Studio esté activo.</td></tr>`;
-            });
-    }
-
-    // Cargar los datos automáticamente al abrir la página
-    window.onload = obtenerCitas;
-</script>
+    <footer>
+        REBECA MIRANDA RASCON DEVORA 4;J 24308051280884 PROGRAMACION
+    </footer>
 
 </body>
 </html>
+
+       
